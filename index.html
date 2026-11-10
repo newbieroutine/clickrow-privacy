@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="index, follow">
+<title>Privacy Policy — ClickRow – Auto Clicker &amp; Form Filler</title>
+<!--
+  Static, self-contained page: no external resources, scripts, fonts, images or analytics.
+  Keep in sync with extension/lib/waitlist.js and the storage keys listed in docs/store-listing.md.
+-->
+<style>
+  :root {
+    --bg: #f5f8f5;
+    --sheet: #ffffff;
+    --fg: #13221a;
+    --muted: #3c4f43;
+    --border: #d9e3db;
+    --card: #e6faf1;
+    --link: #064e3b;
+    --mark: #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1712;
+      --sheet: #13201a;
+      --fg: #e4efe7;
+      --muted: #b9cbbf;
+      --border: #22352a;
+      --card: #1c2c23;
+      --link: #6ee7b7;
+      --mark: #34d399;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 780px; margin: 0 auto; padding: 32px 20px 56px; }
+  h1 { font-size: 1.75rem; line-height: 1.3; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 2em 0 0.5em; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
+  p, ul { margin: 0 0 1em; }
+  ul { padding-left: 1.3em; }
+  li { margin: 0.25em 0; }
+  a { color: var(--link); text-decoration-color: var(--mark); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  code {
+    font: 0.88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--sheet);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+    overflow-wrap: anywhere;
+  }
+  .meta { color: var(--muted); margin-bottom: 1.5em; }
+  .summary { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--mark); border-radius: 8px; padding: 14px 18px; }
+  .summary ul { margin: 0; }
+  .table-wrap { overflow-x: auto; margin: 0 0 1em; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.95em; background: var(--sheet); }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border: 1px solid var(--border); }
+  th { background: var(--card); }
+  footer { margin-top: 3em; color: var(--muted); font-size: 0.9em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta">ClickRow – Auto Clicker &amp; Form Filler (Chrome extension)<br>Effective date: November 10, 2026 (revised)</p>
+
+  <div class="summary">
+    <ul>
+      <li>Runs locally. Nothing leaves your browser unless you send it.</li>
+      <li>Your tasks, the pages you automate and their content stay on your device. They are never sent to the developer or anyone else.</li>
+      <li>The only data ever sent is an optional "Pro" interest message, and only when you click its button. It contains an anonymous random ID and, only if you type it in, your email address.</li>
+      <li>No analytics, no tracking, no ads, no accounts, no remote code, and no selling of data.</li>
+    </ul>
+  </div>
+
+  <h2>1. What the extension does on your device</h2>
+  <p>ClickRow repeats clicks, typing, selections and key presses that you set up or record on a web page. It works only on the tab where you start it, after you click its toolbar icon or press its keyboard shortcut. Chrome then gives it temporary access to that one tab (the <code>activeTab</code> permission); ClickRow has no access to your other tabs or to any website you have not started it on.</p>
+  <p>On that tab ClickRow runs scripts that are part of the extension package (<code>scripting</code> permission) to find the elements in your task, perform the steps, show a small control bar, let you pick an element, or record your own clicks and typing. While doing this it reads only what it needs from the page — for example an element's position, label, visibility and the value of a field after it was filled — to run the step and explain a failure. This happens in your browser. Page content, the text you type into tasks, and the addresses of the pages you automate are <strong>not</strong> sent anywhere.</p>
+
+  <h2>2. Data stored on your device</h2>
+  <p>ClickRow keeps the following items in your browser. They are never uploaded by ClickRow. Removing the extension deletes all of them. They live in two different places:</p>
+  <ul>
+    <li><strong>Extension storage</strong> (<code>chrome.storage.local</code> and <code>chrome.storage.session</code>): Chrome's storage area for this extension. <code>local</code> stays until you delete it or remove the extension; <code>session</code> is kept in memory and cleared when the browser closes. ClickRow does not use <code>chrome.storage.sync</code>, so nothing is synced to your Google account by ClickRow.</li>
+    <li><strong>Extension page web storage</strong> (<code>localStorage</code> of ClickRow's own popup page, origin <code>chrome-extension://&lt;extension id&gt;</code>): a separate store used only for the two Pro-message items at the end of the table. Web pages you visit cannot read it.</li>
+  </ul>
+  <p>Text you type into tasks (for example the text of a "Type" row) is stored as you entered it, in plain text. When ClickRow records you typing into a password, card-number or one-time-code field, it saves the placeholder <code>{{ask}}</code> instead of the value and asks you for it each time the task runs; that value is never saved.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stored item</th><th>Where</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>cr_schema</code></td><td>chrome.storage.local</td><td>Version number of the saved data format</td></tr>
+        <tr><td><code>cr_tasks</code></td><td>chrome.storage.local</td><td>Your tasks: names, the web address patterns you entered, loop settings, and rows (element selectors and labels, text to type, options to choose, what change to expect after a click). Text to type is stored in plain text.</td></tr>
+        <tr><td><code>cr_draft_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>Steps you picked or recorded but have not saved yet</td></tr>
+        <tr><td><code>cr_pending_pick</code></td><td>chrome.storage.local</td><td>The element you just picked on the page, until the editor takes it</td></tr>
+        <tr><td><code>cr_pick_expect</code></td><td>chrome.storage.local</td><td>That the element you are picking is the one a click row should make appear (task and row only), until the editor takes it</td></tr>
+        <tr><td><code>cr_trash</code></td><td>chrome.storage.local</td><td>Up to 20 recently deleted tasks, so you can undo a delete</td></tr>
+        <tr><td><code>cr_backup_v&lt;N&gt;</code></td><td>chrome.storage.local</td><td>A copy of your tasks made before the data format is upgraded</td></tr>
+        <tr><td><code>cr_last_result</code></td><td>chrome.storage.local</td><td>The result of the last run, including why a step failed</td></tr>
+        <tr><td><code>cr_last_task</code></td><td>chrome.storage.local</td><td>For each website (its origin, such as <code>https://example.com</code>) where you ran a task, which task ran last, so the keyboard shortcut can run it again</td></tr>
+        <tr><td><code>cr_hotkey_confirmed_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>That you confirmed running this task with the keyboard shortcut</td></tr>
+        <tr><td><code>cr_backup_hint_dismissed</code></td><td>chrome.storage.local</td><td>That you closed the "Export a backup" reminder</td></tr>
+        <tr><td><code>cr_run</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>The position of a running task (tab, task, website origin, round and row), so it can continue after the page moves to another page of the same site</td></tr>
+        <tr><td><code>cr_open_editor</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>When you click "Open editor" on the page's ClickRow bar: which task and tab to open and that page's address. The popup deletes it as soon as it reads it, and ignores it after 30 seconds.</td></tr>
+        <tr><td><code>cr_anon_id</code></td><td>localStorage of ClickRow's popup page (not chrome.storage)</td><td>The random ID described in section 3, created only when you first click a Pro button</td></tr>
+        <tr><td><code>cr_wl_sent_pro_want</code>, <code>cr_wl_sent_pro_waitlist</code></td><td>localStorage of ClickRow's popup page (not chrome.storage)</td><td>The time each Pro message was delivered, so it is not sent twice</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Exported files.</strong> You can export your tasks to a JSON file. The file is saved where you choose and ClickRow does not send it anywhere. It contains your tasks exactly as stored, <strong>including any text you typed into rows, in plain text (not encrypted)</strong>; anyone who gets the file can read it. If a task fills a card, code or password field with a value you typed, ClickRow warns you before exporting. Keep exported files private, or replace such values with <code>{{ask}}</code> before exporting.</p>
+
+  <h2>3. Optional "Pro" interest message</h2>
+  <p>The extension shows a "Batch from CSV" page for a Pro feature that is not available yet. Nothing is sent unless you click one of its buttons. When you do, the extension sends a single message to the form service Web3Forms (<code>api.web3forms.com</code>), which forwards it to the developer's email inbox:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>When</th><th>Fields sent</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>You click "I want this"</td>
+          <td>event name (<code>pro_want</code>), feature name (<code>csv_batch</code>), extension version, your browser language (for example <code>en-US</code>), and a random ID generated on your device. If you typed an email address before clicking, it is included too.</td>
+        </tr>
+        <tr>
+          <td>You type your email and click "Notify me"</td>
+          <td>event name (<code>pro_waitlist</code>), feature name, extension version, browser language, the same random ID, and <strong>the email address you entered</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Each message also carries the form's public access key, a fixed subject line ("ClickRow - Pro interest" or "ClickRow - Pro waitlist") and the sender name "ClickRow". The random ID is not linked to your Google account, your browsing or your tasks. No task, page address, page content or browsing information is included.</p>
+  <p>Each type of message is sent <strong>at most once per installation</strong>: after it has been delivered, the extension remembers that and does not send it again. If delivery fails, it may be tried again the next time you click.</p>
+  <p>Your email is used only to tell you when the Pro feature launches. As with any web request, Web3Forms can see your IP address; the extension does not add it to the message. Web3Forms is an independent service: it may keep submitted messages and request logs under its own privacy policy (web3forms.com/privacy), which ClickRow does not control. To have your email deleted from the developer's inbox, contact the developer (see Contact below); you can also contact Web3Forms about the copy it keeps.</p>
+
+  <h2>4. What we do not do</h2>
+  <ul>
+    <li>No analytics, telemetry, tracking pixels, crash reporting or advertising.</li>
+    <li>No user accounts or sign-in.</li>
+    <li>We do not collect your browsing history, the websites you automate, page content, or what you type into tasks.</li>
+    <li>We do not sell, rent or share data with third parties, and we do not use it for any purpose unrelated to the extension's single purpose. Web3Forms only delivers the optional message in section 3 to the developer (and may keep it under its own policy, as described there).</li>
+    <li>No remote code: all of the extension's code is included in the package published on the Chrome Web Store. Tasks are plain data that you create or import yourself; the extension does not download tasks or code from the internet.</li>
+  </ul>
+  <p>The use of information by ClickRow adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+
+  <h2>5. Children's privacy</h2>
+  <p>The extension is not directed at children under 13, and we do not knowingly collect personal information from children. If you believe a child has sent us an email address through the Pro form, please contact us and we will delete it.</p>
+
+  <h2>6. Changes to this policy</h2>
+  <p>If the extension's data practices change, this page will be updated and its effective date changed before the new version is published.</p>
+
+  <h2>7. Contact</h2>
+  <p>Questions, or requests to delete your email: <a href="mailto:603356553@qq.com">603356553@qq.com</a></p>
+
+  <footer>
+    ClickRow is an independent extension and is not affiliated with Google. Chrome is a trademark of Google LLC.
+  </footer>
+</main>
+</body>
+</html>

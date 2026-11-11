@@ -69,7 +69,7 @@
 <body>
 <main>
   <h1>Privacy Policy</h1>
-  <p class="meta">ClickRow – Auto Clicker &amp; Form Filler (Chrome extension)<br>Effective date: November 10, 2026 (revised)</p>
+  <p class="meta">ClickRow – Auto Clicker &amp; Form Filler (Chrome extension)<br>Effective date: November 11, 2026 (revised)</p>
 
   <div class="summary">
     <ul>
@@ -106,7 +106,7 @@
         <tr><td><code>cr_last_task</code></td><td>chrome.storage.local</td><td>For each website (its origin, such as <code>https://example.com</code>) where you ran a task, which task ran last, so the keyboard shortcut can run it again</td></tr>
         <tr><td><code>cr_hotkey_confirmed_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>That you confirmed running this task with the keyboard shortcut</td></tr>
         <tr><td><code>cr_backup_hint_dismissed</code></td><td>chrome.storage.local</td><td>That you closed the "Export a backup" reminder</td></tr>
-        <tr><td><code>cr_run</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>The position of a running task (tab, task, a random ID for that run, website origin, round and row), so it can continue after the page moves to another page of the same site</td></tr>
+        <tr><td><code>cr_run</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>The position of a running task (tab, task, a random ID for that run, website origin, round and row, and the address of the page it was on just before moving to another page), so it can continue after the page moves to another page of the same site, and so a failure on the new page can offer “go back to the previous page” as a fix</td></tr>
         <tr><td><code>cr_rec</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>While you are recording: which tab and task, the website origin, and how many unsaved rows there were before, so recording can continue after the page moves to another page of the same site. Deleted when recording stops.</td></tr>
         <tr><td><code>cr_open_editor</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>When you click "Open editor" on the page's ClickRow bar: which task and tab to open and that page's address. The popup deletes it as soon as it reads it, and ignores it after 30 seconds.</td></tr>
         <tr><td><code>cr_anon_id</code></td><td>localStorage of ClickRow's popup page (not chrome.storage)</td><td>The random ID described in section 3, created only when you first click a Pro button</td></tr>

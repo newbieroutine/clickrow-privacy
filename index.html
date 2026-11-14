@@ -8,7 +8,7 @@
 <title>Privacy Policy — ClickRow – Auto Clicker &amp; Form Filler</title>
 <!--
   Static, self-contained page: no external resources, scripts, fonts, images or analytics.
-  Keep in sync with extension/lib/waitlist.js and the storage keys listed in docs/store-listing.md.
+  Keep in sync with the extension code; the code location behind each statement is listed in docs/privacy/verification.txt.
 -->
 <style>
   :root {
@@ -69,7 +69,7 @@
 <body>
 <main>
   <h1>Privacy Policy</h1>
-  <p class="meta">ClickRow – Auto Clicker &amp; Form Filler (Chrome extension)<br>Effective date: November 11, 2026 (revised)</p>
+  <p class="meta">ClickRow – Auto Clicker &amp; Form Filler (Chrome extension)<br>Effective date: November 14, 2026</p>
 
   <div class="summary">
     <ul>
@@ -80,34 +80,68 @@
     </ul>
   </div>
 
+  <h2>Permissions and when they are used</h2>
+  <ul>
+    <li><code>activeTab</code>: temporary access to the tab you are on, granted by Chrome only when you click the toolbar icon, choose a ClickRow item in the right-click menu, or press a ClickRow keyboard shortcut.</li>
+    <li><code>scripting</code>: to run ClickRow's own scripts (included in the extension package) on that tab.</li>
+    <li><code>contextMenus</code>: to add the "Quick fill with ClickRow" item to the right-click menu.</li>
+    <li><code>storage</code>: to keep your tasks and settings in your browser (section 2).</li>
+    <li>Optional website access (<code>http://*/*</code>, <code>https://*/*</code> are only the upper limit Chrome lets the extension ask for): nothing is granted at install. ClickRow asks only when you turn on "Run automatically" for a task, and only for the websites in that task's address rules. It never asks for all websites.</li>
+  </ul>
+  <p>When you install ClickRow, it opens its own welcome and practice page once (a page inside the extension, not a website).</p>
+
   <h2>1. What the extension does on your device</h2>
-  <p>ClickRow repeats clicks, typing, selections and key presses that you set up or record on a web page. It works only on the tab where you start it, after you click its toolbar icon or press its keyboard shortcut. Chrome then gives it temporary access to that one tab (the <code>activeTab</code> permission); ClickRow has no access to your other tabs or to any website you have not started it on.</p>
+  <p>ClickRow repeats clicks, typing, selections and key presses that you set up or record on a web page. It works on the tab where you start it, after you click its toolbar icon, choose its item in the right-click menu (<code>contextMenus</code> permission) or press one of its keyboard shortcuts. Chrome then gives it temporary access to that one tab (the <code>activeTab</code> permission). The only exception is "Run automatically" (below), which works only on the websites you allowed for it. ClickRow has no access to your other tabs or to any other website.</p>
+  <p><strong>Quick fill.</strong> When you choose "Quick fill with ClickRow" (This field / This form / Whole page) in the right-click menu, or press its keyboard shortcut, ClickRow scans the form fields on that tab the same way as "Scan this page's form" and types random test data into them right away. Password, card-number and one-time-code / verification-code fields are <strong>not</strong> filled. A small box in the corner shows how many fields were filled and lets you fill again, undo, or save the fields as a task. Nothing is saved unless you click "Save as task" (then the task is saved like any other task, with random-test-data placeholders such as <code>{{fake:email}}</code>, not the generated values). The values ClickRow writes and the field values it remembers for "Undo" stay in that tab's memory and are gone when the page is closed or reloaded.</p>
+  <p><strong>Run automatically (optional, off by default).</strong> In a task's settings you can turn on "Run automatically when a matching page opens". Only then does ClickRow ask Chrome for access to the websites in that task's web address rules (for example <code>https://shop.example.com/*</code>); Chrome shows you the request and you can decline. The extension asks for no website access when it is installed, and it never asks for access to all websites. With that access, when a tab finishes loading a page whose address matches the task, ClickRow runs the task on it once and shows a box in the corner with "Undo this fill" and "Stop auto-running". It does not run again on the same tab and address within 30 seconds, never runs tasks that click delete-type buttons or that ask you for a value while running (<code>{{ask}}</code>), and by default leaves fields that already have a value as they are. To be able to undo, it remembers the values the fields had before, only in that tab's memory. When you turn the option off, ClickRow gives back the website access that no other auto-run task still needs; you can also remove it at any time in Chrome's extension settings. The addresses of the pages it runs on are checked in your browser and never sent anywhere; the last one per tab is kept for 30 seconds only (<code>cr_autorun_seen</code> below).</p>
   <p>On that tab ClickRow runs scripts that are part of the extension package (<code>scripting</code> permission) to find the elements in your task, perform the steps, show a small control bar, let you pick an element, or record your own clicks and typing. While doing this it reads only what it needs from the page — for example an element's position, label, visibility and the value of a field after it was filled — to run the step and explain a failure. This happens in your browser. Page content, the text you type into tasks, and the addresses of the pages you automate are <strong>not</strong> sent anywhere.</p>
 
+  <p><strong>"Scan this page's form".</strong> ClickRow reads the contents of the form on the tab only when you click "Scan form" / "Scan this page's form". It then reads the visible form fields' labels, types and options (and the page title, used as the default name of a new task), and shows them in the popup for you to review. You choose how values are filled in:</p>
+  <ul>
+    <li><strong>Current page values</strong>: the values currently in the fields are copied into the rows you add, and saved with your task on your device (in plain text, like any text you type into a task). Password, card-number and one-time-code / verification-code fields (including every box of a code split into separate boxes) are <strong>not</strong> read; those rows get the placeholder <code>{{ask}}</code> and ClickRow asks you for the value each time the task runs.</li>
+    <li><strong>Random test data</strong> (the default): text fields get placeholders such as <code>{{fake:email}}</code> that create new test data on every run, so the text currently in the page's fields is not saved. Only whether checkboxes and switches are ticked is kept (you can change that to random), and a week field, which has no random format, keeps its current value.</li>
+  </ul>
+  <p>Scan results stay in the popup's memory until you add them, and anything you don't add is discarded. Scanning never sends anything outside your browser.</p>
+  <p><strong>"This page has a form" suggestion.</strong> When you open ClickRow's popup on a tab (which gives it access to that tab), it counts how many fillable form fields are visible there, so it can suggest scanning the form. This count only checks which fields exist and whether they are visible and enabled: it does <strong>not</strong> read what is typed or selected in them, does not read their labels, and does not save or send anything. Only the number reaches the popup, and the suggestion appears only when there are at least three fields. Choose "Don't suggest here" to stop the suggestion on that website.</p>
+
+  <p><strong>Help and feedback links.</strong> "Help", the "What is this?" links next to error codes, and "Send feedback" are ordinary links that open only when you click them. Help opens the help pages at <code>newbieroutine.github.io/clickrow-privacy/help/</code> in a new tab, like any website you visit (GitHub, which hosts them, can see your IP address as for any page). "Send feedback" opens your own email app with a draft to the developer that contains the extension version, your browser name and version, and the interface language; nothing is sent unless you send that email yourself. ClickRow itself makes no request in either case.</p>
+  <p><strong>Language.</strong> The interface is shown in English unless you choose another language with the language button; the language files are part of the extension package and are not downloaded.</p>
+
   <h2>2. Data stored on your device</h2>
-  <p>ClickRow keeps the following items in your browser. They are never uploaded by ClickRow. Removing the extension deletes all of them. They live in two different places:</p>
+  <p>ClickRow keeps the following items in your browser. They are never uploaded by ClickRow. Removing the extension deletes all of them (see section 2a). They live in two different places:</p>
   <ul>
     <li><strong>Extension storage</strong> (<code>chrome.storage.local</code> and <code>chrome.storage.session</code>): Chrome's storage area for this extension. <code>local</code> stays until you delete it or remove the extension; <code>session</code> is kept in memory and cleared when the browser closes. ClickRow does not use <code>chrome.storage.sync</code>, so nothing is synced to your Google account by ClickRow.</li>
     <li><strong>Extension page web storage</strong> (<code>localStorage</code> of ClickRow's own popup page, origin <code>chrome-extension://&lt;extension id&gt;</code>): a separate store used only for the two Pro-message items at the end of the table. Web pages you visit cannot read it.</li>
   </ul>
-  <p>Text you type into tasks (for example the text of a "Type" row) is stored as you entered it, in plain text. When ClickRow records you typing into a password, card-number or one-time-code field, it saves the placeholder <code>{{ask}}</code> instead of the value and asks you for it each time the task runs; that value is never saved. While that run continues on the next page of the same site, ClickRow keeps your answer only in the extension's memory (its background service worker), so it doesn't ask again on every page. The answer is never written to storage or to disk, and it is cleared when the run finishes, fails or is stopped, or when you close the tab. If Chrome unloads the extension's background in the meantime, the answer is gone and ClickRow simply asks again.</p>
+  <p>Text you type into tasks (for example the text of a "Type" row) is stored as you entered it, in plain text. When ClickRow records you typing into a password, card-number or one-time-code / verification-code field, it saves the placeholder <code>{{ask}}</code> instead of the value and asks you for it each time the task runs; that value is never saved.</p>
+  <p><strong>Answers to <code>{{ask}}</code>.</strong> Before a task with <code>{{ask}}</code> rows runs, ClickRow shows one small form for all of them. Answers for password, card-number and one-time-code / verification-code fields are never saved. Other answers are saved on your device as the pre-filled default for the next run of the same task (<code>cr_ask_last</code> below, up to 2,000 characters per answer), so you can just confirm them; you can change or clear them in the form each time. While a run continues on the next page of the same site, ClickRow keeps your answers only in the extension's memory (its background service worker), so it doesn't ask again on every page. This in-memory copy is never written to storage or to disk, and it is cleared when the run finishes, fails or is stopped, or when you close the tab. If Chrome unloads the extension's background in the meantime, it is gone and ClickRow simply asks again.</p>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Stored item</th><th>Where</th><th>Purpose</th></tr></thead>
       <tbody>
         <tr><td><code>cr_schema</code></td><td>chrome.storage.local</td><td>Version number of the saved data format</td></tr>
-        <tr><td><code>cr_tasks</code></td><td>chrome.storage.local</td><td>Your tasks: names, the web address patterns you entered, loop settings, and rows (element selectors and labels, text to type, options to choose, what change to expect after a click). Text to type is stored in plain text.</td></tr>
+        <tr><td><code>cr_tasks</code></td><td>chrome.storage.local</td><td>Your tasks: names, the web address patterns you entered, loop settings, whether the task runs automatically and whether it overwrites fields that already have a value, and rows (element selectors and labels, text to type, options to choose, what change to expect after a click). Text to type is stored in plain text.</td></tr>
         <tr><td><code>cr_draft_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>Steps you picked or recorded but have not saved yet</td></tr>
         <tr><td><code>cr_pending_pick</code></td><td>chrome.storage.local</td><td>The element you just picked on the page, until the editor takes it</td></tr>
         <tr><td><code>cr_pick_expect</code></td><td>chrome.storage.local</td><td>That the element you are picking is the one a click row should make appear (task and row only), until the editor takes it</td></tr>
         <tr><td><code>cr_trash</code></td><td>chrome.storage.local</td><td>Up to 20 recently deleted tasks, so you can undo a delete</td></tr>
         <tr><td><code>cr_backup_v&lt;N&gt;</code></td><td>chrome.storage.local</td><td>A copy of your tasks made before the data format is upgraded</td></tr>
         <tr><td><code>cr_last_result</code></td><td>chrome.storage.local</td><td>The result of the last run, including why a step failed</td></tr>
+        <tr><td><code>cr_runlog_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>Run history of a task: for each of its latest 20 runs, when it started and ended, how many rounds ran, whether it finished (and whether it ended because there was nothing more to process, or was started by "Run automatically"), failed or was stopped, the row number and step ID where it failed with the failure reason code (such as <code>NOT_FOUND</code>), and how long each row took on average. It never contains text you typed, answers to <code>{{ask}}</code>, web addresses or page content. Deleted when you clear the history, and (Chrome 130 or later) automatically once the task is permanently deleted.</td></tr>
         <tr><td><code>cr_last_task</code></td><td>chrome.storage.local</td><td>For each website (its origin, such as <code>https://example.com</code>) where you ran a task, which task ran last, so the keyboard shortcut can run it again</td></tr>
         <tr><td><code>cr_hotkey_confirmed_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>That you confirmed running this task with the keyboard shortcut</td></tr>
+        <tr><td><code>cr_danger_ok_&lt;task&gt;</code></td><td>chrome.storage.local</td><td>That you confirmed running this task even though it deletes or removes things (asked once per task, before its first run)</td></tr>
+        <tr><td><code>cr_lu_guide</code></td><td>chrome.storage.local</td><td>For a task made from the "Delete list rows" template: which of its rows still need you to pick the delete or confirm button (row IDs only). Deleted when you finish picking.</td></tr>
+        <tr><td><code>cr_st_defaults</code></td><td>chrome.storage.local</td><td>For a task made from the "Repeat a click" template that has no rows yet: the row defaults to use for its first rows (click rows don't wait after clicking). Deleted once the task has rows.</td></tr>
+        <tr><td><code>cr_scan_value_mode</code></td><td>chrome.storage.local</td><td>Which value mode ("Random test data" or "Current page values") you last chose when scanning a form</td></tr>
+        <tr><td><code>cr_scan_hint_off</code></td><td>chrome.storage.local</td><td>The websites (their origin, such as <code>https://example.com</code>; at most 200) where you chose "Don't suggest here" for the "This page has a form" suggestion</td></tr>
+        <tr><td><code>cr_ask_last</code></td><td>chrome.storage.local</td><td>For each task that has <code>{{ask}}</code> rows: your last answers (except password, card-number and one-time-code / verification-code answers, which are never saved), whether you chose to be asked every round, and when, used to pre-fill the form next time. Each answer is cut to 2,000 characters. Kept until you remove the extension.</td></tr>
+        <tr><td><code>cr_ui_lang</code></td><td>chrome.storage.local</td><td>The interface language you chose with the language button or in Settings ("Follow browser" or one of the 10 languages). Not set until you choose; English is used by default.</td></tr>
         <tr><td><code>cr_backup_hint_dismissed</code></td><td>chrome.storage.local</td><td>That you closed the "Export a backup" reminder</td></tr>
         <tr><td><code>cr_run</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>The position of a running task (tab, task, a random ID for that run, website origin, round and row, and the address of the page it was on just before moving to another page), so it can continue after the page moves to another page of the same site, and so a failure on the new page can offer “go back to the previous page” as a fix</td></tr>
+        <tr><td><code>cr_runlog_cur</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>While a task is running: the same kind of timing data as the run history above (task, start time, round, row, row durations), so the record survives if Chrome unloads the extension's background. Removed when the run ends.</td></tr>
         <tr><td><code>cr_rec</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>While you are recording: which tab and task, the website origin, and how many unsaved rows there were before, so recording can continue after the page moves to another page of the same site. Deleted when recording stops.</td></tr>
+        <tr><td><code>cr_autorun_seen</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>For "Run automatically": for each tab where a task ran automatically in the last 30 seconds, the page address (without the part after <code>#</code>) and the time, so the task does not run again when the same page reloads. Entries older than 30 seconds are dropped.</td></tr>
         <tr><td><code>cr_open_editor</code></td><td>chrome.storage.session (cleared when the browser closes)</td><td>When you click "Open editor" on the page's ClickRow bar: which task and tab to open and that page's address. The popup deletes it as soon as it reads it, and ignores it after 30 seconds.</td></tr>
         <tr><td><code>cr_anon_id</code></td><td>localStorage of ClickRow's popup page (not chrome.storage)</td><td>The random ID described in section 3, created only when you first click a Pro button</td></tr>
         <tr><td><code>cr_wl_sent_pro_want</code>, <code>cr_wl_sent_pro_waitlist</code></td><td>localStorage of ClickRow's popup page (not chrome.storage)</td><td>The time each Pro message was delivered, so it is not sent twice</td></tr>
@@ -115,6 +149,14 @@
     </table>
   </div>
   <p><strong>Exported files.</strong> You can export your tasks to a JSON file. The file is saved where you choose and ClickRow does not send it anywhere. It contains your tasks exactly as stored, <strong>including any text you typed into rows, in plain text (not encrypted)</strong>; anyone who gets the file can read it. If a task fills a card, code or password field with a value you typed, ClickRow warns you before exporting. Keep exported files private, or replace such values with <code>{{ask}}</code> before exporting.</p>
+
+  <h2>2a. Keeping and deleting your data</h2>
+  <ul>
+    <li>Everything in section 2 stays in your browser until you delete it or remove the extension. Removing ClickRow from Chrome deletes all of it, including the popup page's <code>localStorage</code>.</li>
+    <li>Items in <code>chrome.storage.session</code> are cleared when the browser closes; several are removed earlier, as described in the table.</li>
+    <li>Deleting a task moves it to the trash (the 20 most recent deleted tasks are kept so you can undo). Its run history can be cleared at any time in the task's history; it is also removed after the task leaves the trash (Chrome 130 or later). Saved <code>{{ask}}</code> defaults (<code>cr_ask_last</code>) are not removed when a task is deleted; they are removed with the extension.</li>
+    <li>ClickRow keeps no copy of your data anywhere else, so there is nothing for the developer to delete except a Pro message you chose to send (section 3).</li>
+  </ul>
 
   <h2>3. Optional "Pro" interest message</h2>
   <p>The extension shows a "Batch from CSV" page for a Pro feature that is not available yet. Nothing is sent unless you click one of its buttons. When you do, the extension sends a single message to the form service Web3Forms (<code>api.web3forms.com</code>), which forwards it to the developer's email inbox:</p>
@@ -154,7 +196,7 @@
   <p>If the extension's data practices change, this page will be updated and its effective date changed before the new version is published.</p>
 
   <h2>7. Contact</h2>
-  <p>Questions, or requests to delete your email: <a href="mailto:603356553@qq.com">603356553@qq.com</a></p>
+  <p>Questions, or requests to delete your email: <a href="mailto:603356553@qq.com">603356553@qq.com</a> (the same address used by "Send feedback" in the extension).</p>
 
   <footer>
     ClickRow is an independent extension and is not affiliated with Google. Chrome is a trademark of Google LLC.

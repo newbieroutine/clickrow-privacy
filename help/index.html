@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Help — ClickRow</title>
+<!--
+  草稿（ux-c，由 tools/help-page.mjs 生成，勿手改）：随隐私页一起发布到 GitHub Pages（clickrow-privacy 仓库 help/ 目录）后，
+  弹窗「帮助」与错误码链接才可访问。静态自包含页面：无外部资源、脚本、字体、统计。
+-->
+<style>
+  :root {
+    --bg: #f5f8f5;
+    --sheet: #ffffff;
+    --fg: #13221a;
+    --muted: #3c4f43;
+    --border: #d9e3db;
+    --card: #e6faf1;
+    --link: #064e3b;
+    --mark: #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1712;
+      --sheet: #13201a;
+      --fg: #e4efe7;
+      --muted: #b9cbbf;
+      --border: #22352a;
+      --card: #1c2c23;
+      --link: #6ee7b7;
+      --mark: #34d399;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 780px; margin: 0 auto; padding: 32px 20px 56px; }
+  h1 { font-size: 1.75rem; line-height: 1.3; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 2em 0 0.5em; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
+  p, ul { margin: 0 0 1em; }
+  ul { padding-left: 1.3em; }
+  li { margin: 0.25em 0; }
+  a { color: var(--link); text-decoration-color: var(--mark); text-underline-offset: 2px; overflow-wrap: anywhere; }
+  code {
+    font: 0.88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--sheet);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+    overflow-wrap: anywhere;
+  }
+  .meta { color: var(--muted); margin-bottom: 1.5em; }
+  .summary { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--mark); border-radius: 8px; padding: 14px 18px; }
+  .summary ul { margin: 0; }
+  .table-wrap { overflow-x: auto; margin: 0 0 1em; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.95em; background: var(--sheet); }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border: 1px solid var(--border); }
+  th { background: var(--card); }
+  footer { margin-top: 3em; color: var(--muted); font-size: 0.9em; }
+  tr:target td { background: var(--card); }
+  td:first-child { white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <p class="meta"><a href="zh-CN.html">中文版</a></p>
+  <h1>ClickRow help</h1>
+  <p class="meta">Draft · a short guide to ClickRow – Auto Clicker &amp; Form Filler</p>
+
+  <div class="summary"><p><strong>In short:</strong> a <em>task</em> is a list of <em>rows</em> (click, type, choose, tick, wait…) that ClickRow runs on the current page, once or for many rounds. Everything runs in your browser.</p></div>
+  <ul>
+    <li><a href="#start">Make a task</a></li><li><a href="#run">Run, repeat and stop</a></li><li><a href="#values">Values: {{ask}}, counters and test data</a></li>
+    <li><a href="#lists">Lists: each row in turn and “no more”</a></li><li><a href="#quickfill">Quick fill and auto-run</a></li>
+    <li><a href="#history">Run history</a></li><li><a href="#keys">Keyboard shortcuts</a></li><li><a href="#errors">When a row fails (error codes)</a></li><li><a href="#feedback">Feedback</a></li>
+  </ul>
+  <h2 id="start">1. Make a task</h2>
+  <ul>
+    <li><strong>Pick to click</strong> — open the ClickRow popup, press <em>Pick to click</em>, then click the element on the page. Each pick adds a row.</li>
+    <li><strong>Record</strong> — press <em>Record</em> and use the page normally; clicks, typing and choices become rows. Passwords and card numbers are saved as <code>{{ask}}</code>, never as the value.</li>
+    <li><strong>Scan form</strong> — turns every field of the form on this page into one task, filled with test data or the values already on the page.</li>
+    <li><strong>Templates</strong> — the <em>+</em> button → <em>From a template…</em>. Open a template to see what each row does; its generic selectors are under <em>Advanced</em>. Re-pick elements in the editor if they don’t match your page.</li>
+  </ul>
+  <h2 id="run">2. Run, repeat and stop</h2>
+  <ul>
+    <li>Press the round play button on a task. A small ClickRow bar on the page shows the current round and row, with Pause and Stop.</li>
+    <li>In the editor, <em>Repeat</em> sets how many rounds to run, the pause between rounds, or “until an element is gone”.</li>
+    <li>A task only runs on the websites in its address rules. It continues across pages of the same site and stops if the page moves to another site.</li>
+  </ul>
+  <h2 id="values">3. Values: {{ask}}, counters and test data</h2>
+  <ul>
+    <li><code>{{ask}}</code> — ClickRow asks you for the value each time the task runs; it is never saved.</li>
+    <li><code>{{counter}}</code> — the round number (1, 2, 3…), handy for unique names.</li>
+    <li>Test data such as <code>{{fake:email}}</code> — a new random value each round.</li>
+  </ul>
+  <h2 id="lists">4. Lists: each row in turn and “no more”</h2>
+  <ul>
+    <li><strong>Each row in turn</strong> — when a row’s element matches many items (a button in every line of a table), choose <em>If several match → Each row in turn</em> in the editor. Each round handles the next line; lines that were removed or re-sorted are recognised, disabled lines are skipped.</li>
+    <li>When you record or pick a button inside a list, ClickRow saves it for the whole list rather than for that one line. The page bar says how it was saved and offers a one-click switch between “first row” and “each row in turn”.</li>
+    <li><strong>“No more” is a normal finish</strong> — when all lines are done, or the last <em>Next page</em> / <em>Load more</em> button is disabled or gone after at least one full round, the task ends as <em>Finished (no more)</em> instead of failing.</li>
+  </ul>
+  <h2 id="quickfill">5. Quick fill and auto-run</h2>
+  <ul>
+    <li><strong>Quick fill</strong> — right-click a field → <em>Quick fill with ClickRow</em> → <em>This field</em>, <em>This form</em> or <em>Whole page</em>, or press <kbd>Alt+Shift+F</kbd> (Mac: <kbd>Ctrl+Shift+F</kbd>) for the whole page. Fields get random test data; passwords, card numbers and codes are never filled. A small panel shows what was filled and skipped, with <em>Undo</em>, <em>Fill again</em> and <em>Save as task</em>. No task is needed.</li>
+    <li><strong>Auto-run</strong> — in the editor, turn on <em>Run automatically when a matching page opens</em>. ClickRow asks for access to those sites only (it never asks for all websites). By default it only fills empty fields; the page shows <em>Undo this fill</em> afterwards. Tasks that click delete-type buttons, or that ask for a value at run time (<code>{{ask}}</code>), can’t auto-run because nobody may be there to confirm or answer.</li>
+  </ul>
+  <h2 id="history">6. Run history</h2>
+  <p>Task menu <em>⋯</em> → <em>Run history</em> shows the latest 20 runs of a task: when, how long, how many rounds, and for a failed run the row and the reason. Runs that ended because there was nothing more to do, and runs started by auto-run, are marked. <em>Go to the row that failed</em> opens the editor at that row. Only times, row numbers and reason codes are kept — never what was typed. Quick fill isn’t a task run and isn’t recorded. <em>Clear history</em> deletes them.</p>
+  <h2 id="keys">7. Keyboard shortcuts</h2>
+  <ul>
+    <li><kbd>Alt+Shift+G</kbd> (Mac: <kbd>Ctrl+Shift+G</kbd>) — run the last task used on the current website.</li>
+    <li><kbd>Alt+Shift+S</kbd> (Mac: <kbd>Ctrl+Shift+S</kbd>) — stop the running task.</li>
+    <li><kbd>Alt+Shift+F</kbd> (Mac: <kbd>Ctrl+Shift+F</kbd>) — quick fill the whole page.</li>
+  </ul>
+  <p>Change them at <code>chrome://extensions/shortcuts</code>; if another extension already uses a key, Chrome leaves it unset there. Popup <em>Settings</em> shows the current keys.</p>
+  <h2 id="errors">8. When a row fails (error codes)</h2>
+  <p>When a row fails, ClickRow stops and shows why, with a suggested fix. Each reason has a code; the code in the popup links here.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Code</th><th>What it means</th><th>What to do</th></tr></thead>
+      <tbody>
+        <tr id="err-NOT_FOUND"><td><code>NOT_FOUND</code></td><td>Couldn’t find the element</td><td>It didn’t show up in time. The page may still be loading, or its layout changed.</td></tr>
+        <tr id="err-NOT_VISIBLE"><td><code>NOT_VISIBLE</code></td><td>the element is hidden</td><td>It’s on the page but hidden. It may only appear after another action, or after a short wait.</td></tr>
+        <tr id="err-COVERED"><td><code>COVERED</code></td><td>the element is covered</td><td>Something sits on top of it, so the click lands there instead.</td></tr>
+        <tr id="err-DISABLED"><td><code>DISABLED</code></td><td>the element is disabled</td><td>The page may enable it after the required fields are filled.</td></tr>
+        <tr id="err-VALUE_NOT_APPLIED"><td><code>VALUE_NOT_APPLIED</code></td><td>The value didn’t stick in the element</td><td>The site may reformat or reject scripted input.</td></tr>
+        <tr id="err-NO_EFFECT"><td><code>NO_EFFECT</code></td><td>Clicking the element did nothing</td><td>The site may ignore scripted clicks. Try a screen position, or add a wait.</td></tr>
+        <tr id="err-STILL_VISIBLE"><td><code>STILL_VISIBLE</code></td><td>Still on the page</td><td>The element this row waits to disappear is still there. The page may need longer to refresh, or the row before didn’t take effect.</td></tr>
+        <tr id="err-HOVER_NO_MENU"><td><code>HOVER_NO_MENU</code></td><td>Hovering over the element didn't open its menu</td><td>ClickRow moved the pointer onto the menu button (then tried the keyboard and a click), but no menu appeared. Some sites only open this menu for a real mouse. Re-pick the menu button, or record a click that opens the menu.</td></tr>
+        <tr id="err-CUSTOM_DROPDOWN"><td><code>CUSTOM_DROPDOWN</code></td><td>the element is a custom dropdown</td><td>It isn’t a standard select box. Click to open, type the option, press Enter.</td></tr>
+        <tr id="err-NOT_EDITABLE"><td><code>NOT_EDITABLE</code></td><td>the element can’t be typed into</td><td>This element is not a text field. Re-pick the input box itself.</td></tr>
+        <tr id="err-UNSUPPORTED_FIELD"><td><code>UNSUPPORTED_FIELD</code></td><td>the element is a field type ClickRow can’t fill</td><td>File pickers and similar fields can’t be filled by extensions. Fill this one by hand, or disable the row.</td></tr>
+        <tr id="err-UNSUPPORTED_KEY"><td><code>UNSUPPORTED_KEY</code></td><td>This key can’t be pressed by ClickRow</td><td>Use key names like Enter, Tab, Escape, ArrowDown or Ctrl+A.</td></tr>
+        <tr id="err-ASK_REQUIRED"><td><code>ASK_REQUIRED</code></td><td>the element needs a value you type at run time</td><td>This row uses {{ask}}. Run it again and type the value when ClickRow asks — it is never saved.</td></tr>
+        <tr id="err-FRAME_CROSS_ORIGIN"><td><code>FRAME_CROSS_ORIGIN</code></td><td>the element is inside another site’s frame</td><td>ClickRow can only reach frames from the same site. Open that page directly.</td></tr>
+        <tr id="err-CANVAS_TARGET"><td><code>CANVAS_TARGET</code></td><td>the element is a canvas or game area</td><td>ClickRow clicks and fills elements inside web pages — not games or canvas drawings.</td></tr>
+        <tr id="err-NAVIGATED_AWAY"><td><code>NAVIGATED_AWAY</code></td><td>The page moved to another site at the element</td><td>ClickRow stops when a task leaves the site it started on.</td></tr>
+        <tr id="err-NAV_TIMEOUT"><td><code>NAV_TIMEOUT</code></td><td>The next page didn’t load in time after the element</td><td>ClickRow waits 10 seconds for the next page. Check the page, then continue.</td></tr>
+        <tr id="err-RESUME_FAILED"><td><code>RESUME_FAILED</code></td><td>ClickRow couldn’t continue on the new page after the element</td><td>Reload the page, click the ClickRow icon, then continue.</td></tr>
+        <tr id="err-CURSOR_UNAVAILABLE"><td><code>CURSOR_UNAVAILABLE</code></td><td>ClickRow couldn’t save its progress at the element</td><td>ClickRow couldn’t save its progress, so it can’t continue on the next page. Reload the page and run again.</td></tr>
+        <tr id="err-GOTO_CROSS_ORIGIN"><td><code>GOTO_CROSS_ORIGIN</code></td><td>This go-to row leaves the site</td><td>Go-to rows can only open pages on the site the task started on. Change the address to a page on this site.</td></tr>
+        <tr id="err-GOTO_BAD_URL"><td><code>GOTO_BAD_URL</code></td><td>This go-to row has an invalid address</td><td>Fix the address in this row — for example https://example.com/form or /form.</td></tr>
+        <tr id="err-GOTO_BAD_PROTOCOL"><td><code>GOTO_BAD_PROTOCOL</code></td><td>This go-to row has an unsupported address</td><td>Go-to rows only open http:// or https:// pages.</td></tr>
+        <tr id="err-UNSUPPORTED_STEP"><td><code>UNSUPPORTED_STEP</code></td><td>Unknown row type</td><td>This row was made by a newer or different version of ClickRow. Delete it and add it again.</td></tr>
+        <tr id="err-ERROR"><td><code>ERROR</code></td><td>Row failed unexpectedly</td><td>Something on the page broke this row. Reload the page and try again; if it keeps happening, re-pick the element.</td></tr>
+        <tr id="err-ACTION_ERROR"><td><code>ACTION_ERROR</code></td><td>Row failed unexpectedly</td><td>Something on the page broke this row. Reload the page and try again; if it keeps happening, re-pick the element.</td></tr>
+        <tr id="err-TAB_CLOSED"><td><code>TAB_CLOSED</code></td><td>The tab was closed while the task was running</td><td>Shown in run history only. Keep the tab open until the run finishes.</td></tr>
+        <tr id="err-INTERRUPTED"><td><code>INTERRUPTED</code></td><td>The run was interrupted</td><td>Shown in run history only. The page reloaded or the browser stopped the run. Run the task again.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="feedback">9. Feedback</h2>
+  <p>Found a bug or missing something? Email <a href="mailto:603356553@qq.com?subject=ClickRow%20feedback">603356553@qq.com</a>. Describe what you did and what happened; please don’t include passwords or personal data. See also the <a href="../">privacy policy</a>.</p>
+</main>
+</body>
+</html>
